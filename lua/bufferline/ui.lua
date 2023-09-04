@@ -222,6 +222,8 @@ local function add_space(ctx, length)
     right_size = right_size > 0 and right_size - strwidth(icon) or right_size
     left_size = left_size + strwidth(icon)
   end
+  left_size = 3
+  right_size = 0
   return pad({
     left = { size = left_size, hl = curr_hl.buffer },
     right = { size = right_size },
@@ -286,6 +288,8 @@ local function add_indicator(context)
   local options = config.options
   local style = options.separator_style
   local symbol, highlight = padding, nil
+
+  symbol = ""
 
   if is_slant(style) then return { text = symbol, highlight = highlight } end
 
