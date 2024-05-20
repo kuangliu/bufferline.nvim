@@ -31,6 +31,7 @@ local M = {
   get_elements = commands.get_elements,
   close_with_pick = commands.close_with_pick,
   close_in_direction = commands.close_in_direction,
+  rename_tab = commands.rename_tab,
   close_others = commands.close_others,
   unpin_and_close = commands.unpin_and_close,
 
@@ -87,6 +88,7 @@ end
 
 --- If the item count has changed and the next tabline status is different then update it
 local function toggle_bufferline()
+  if not config.options.auto_toggle_bufferline then return end
   local item_count = config:is_tabline() and utils.get_tab_count() or utils.get_buf_count()
   local status = (config.options.always_show_bufferline or item_count > 1) and 2 or 0
   if vim.o.showtabline ~= status then vim.o.showtabline = status end
@@ -168,6 +170,7 @@ local function setup_commands()
   command("BufferLineSortByTabs", function() M.sort_by("tabs") end)
   command("BufferLineGoToBuffer", function(opts) M.go_to(opts.args) end, { nargs = 1 })
   command("BufferLineTogglePin", function() groups.toggle_pin() end, { nargs = 0 })
+  command("BufferLineTabRename", function(opts) M.rename_tab(opts.fargs) end, { nargs = "*" })
   command("BufferLineGroupClose", function(opts) groups.action(opts.args, "close") end, {
     nargs = 1,
     complete = groups.complete,

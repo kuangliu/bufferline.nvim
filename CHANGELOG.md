@@ -1,5 +1,61 @@
 # Changelog
 
+## [4.5.3](https://github.com/akinsho/bufferline.nvim/compare/v4.5.2...v4.5.3) (2024-04-19)
+
+
+### Bug Fixes
+
+* **utils:** improve path separator detection on Windows ([#888](https://github.com/akinsho/bufferline.nvim/issues/888)) ([d7ebc0d](https://github.com/akinsho/bufferline.nvim/commit/d7ebc0de62a2f752dcd3cadf6f3235a0702f15a3))
+
+## [4.5.2](https://github.com/akinsho/bufferline.nvim/compare/v4.5.1...v4.5.2) (2024-03-07)
+
+
+### Bug Fixes
+
+* **tabpages:** renaming bug on reopened tab ([#877](https://github.com/akinsho/bufferline.nvim/issues/877)) ([1064399](https://github.com/akinsho/bufferline.nvim/commit/10643990c33ca295bfe970d775c6e7697354aa0f))
+
+## [4.5.1](https://github.com/akinsho/bufferline.nvim/compare/v4.5.0...v4.5.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* **tabpages:** typo in rename_tab ([#873](https://github.com/akinsho/bufferline.nvim/issues/873)) ([5bf13d1](https://github.com/akinsho/bufferline.nvim/commit/5bf13d17a8c8abbce8d3ef83c8658b32e08ce913))
+
+## [4.5.0](https://github.com/akinsho/bufferline.nvim/compare/v4.4.1...v4.5.0) (2024-01-22)
+
+
+### Features
+
+* **ui:** tab renaming ([#848](https://github.com/akinsho/bufferline.nvim/issues/848)) ([f2e6c86](https://github.com/akinsho/bufferline.nvim/commit/f2e6c86975deb0f4594d671b7f31c379802491d3))
+
+
+### Bug Fixes
+
+* skip invalid regex in truncate_name ([#841](https://github.com/akinsho/bufferline.nvim/issues/841)) ([ac788fb](https://github.com/akinsho/bufferline.nvim/commit/ac788fbc493839c1e76daa8d119934b715fdb90e))
+
+## [4.4.1](https://github.com/akinsho/bufferline.nvim/compare/v4.4.0...v4.4.1) (2023-12-06)
+
+
+### Bug Fixes
+
+* **commands:** potential nil access ([#821](https://github.com/akinsho/bufferline.nvim/issues/821)) ([6e96fa2](https://github.com/akinsho/bufferline.nvim/commit/6e96fa27a0d4dd6c00a252b51c0b43b9b95cd302))
+* remove `missing required fields` diagnostic from config ([#812](https://github.com/akinsho/bufferline.nvim/issues/812)) ([1a33975](https://github.com/akinsho/bufferline.nvim/commit/1a3397556d194bb1f2cc530b07124ccc512c5501))
+* use link if specified in custom areas ([#839](https://github.com/akinsho/bufferline.nvim/issues/839)) ([9ca364d](https://github.com/akinsho/bufferline.nvim/commit/9ca364d488b98894ca780c40aae9ea63967c8fcf))
+
+## [4.4.0](https://github.com/akinsho/bufferline.nvim/compare/v4.3.0...v4.4.0) (2023-09-20)
+
+
+### Features
+
+* Support `name_formatter` for unnamed buffers ([#806](https://github.com/akinsho/bufferline.nvim/issues/806)) ([9961d87](https://github.com/akinsho/bufferline.nvim/commit/9961d87bb3ec008213c46ba14b3f384a5f520eb5))
+
+
+### Bug Fixes
+
+* **diagnostics:** ignore disabled diagnostics ([#816](https://github.com/akinsho/bufferline.nvim/issues/816)) ([8a51c4b](https://github.com/akinsho/bufferline.nvim/commit/8a51c4b5d105d93fd2bc435bf93d4d5556fb2a60))
+* **icons:** display overriden devicons ([#817](https://github.com/akinsho/bufferline.nvim/issues/817)) ([81cd04f](https://github.com/akinsho/bufferline.nvim/commit/81cd04fe7c914d020d331cea1e707da5f14c2665))
+* **readme:** Typo ([#793](https://github.com/akinsho/bufferline.nvim/issues/793)) ([99f0932](https://github.com/akinsho/bufferline.nvim/commit/99f0932365b34e22549ff58e1bea388465d15e99))
+
 ## [4.3.0](https://github.com/akinsho/bufferline.nvim/compare/v4.2.0...v4.3.0) (2023-07-17)
 
 

@@ -121,7 +121,23 @@ function M.tbl_reverse_lookup(tbl)
   return ret
 end
 
-M.path_sep = vim.startswith(vim.loop.os_uname().sysname, "Windows") and "\\" or "/"
+--- creates a table containing the forward and reversed mapping from the provided
+--- table.
+--- similar to the now deprecated vim.tbl_add_reverse_lookup
+--- @generic K,V
+--- @param tbl table<K,V>
+--- @return table<V,K>
+function M.tbl_add_reverse_lookup(tbl)
+  local ret = {}
+  for k, v in pairs(tbl) do
+    ret[k] = v
+    ret[v] = k
+  end
+
+  return ret
+end
+
+M.path_sep = vim.fn.has("win32") == 1 and "\\" or "/"
 
 -- The provided api nvim_is_buf_loaded filters out all hidden buffers
 --- @param buf_num integer
@@ -202,7 +218,7 @@ function M.get_icon(opts)
   end
   if type == "terminal" then return webdev_icons.get_icon(type) end
 
-  local icon, hl = webdev_icons.get_icon(fn.fnamemodify(opts.path, ":t"), opts.extension, {
+  local icon, hl = webdev_icons.get_icon(fn.fnamemodify(opts.path, ":t"), nil, {
     default = true,
   })
 
@@ -243,7 +259,7 @@ function M.truncate_name(name, word_limit)
   -- truncate nicely by seeing if we can drop the extension first
   -- to make things fit if not then truncate abruptly
   local ext = fn.fnamemodify(name, ":e")
-  if ext ~= "" then
+  if ext ~= "" and ext:match("^%w+$") then
     local truncated = name:gsub("%." .. ext, "", 1)
     if strwidth(truncated) < word_limit then return truncated .. constants.ELLIPSIS end
   end
@@ -252,6 +268,11 @@ end
 
 -- TODO: deprecate this in nvim-0.11 or use strict lists
 --- Determine which list-check function to use
-M.is_list = vim.tbl_isarray or vim.tbl_islist
+
+if vim.fn.has("nvim-0.10") == 1 then
+  M.is_list = vim.isarray or vim.islist
+else
+  M.is_list = vim.tbl_isarray or vim.tbl_islist
+end
 
 return M

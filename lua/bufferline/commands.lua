@@ -9,6 +9,7 @@ local config = lazy.require("bufferline.config") ---@module "bufferline.config"
 local groups = lazy.require("bufferline.groups") ---@module "bufferline.groups"
 local sorters = lazy.require("bufferline.sorters") ---@module "bufferline.sorters"
 local pick = lazy.require("bufferline.pick") ---@module "bufferline.pick"
+local tabpage = lazy.require("bufferline.tabpages") ---@module "bufferline.tabpages"
 
 local M = {}
 
@@ -119,7 +120,8 @@ function M.go_to(num, absolute)
   local list = absolute and state.components or state.visible_components
   local element = list[num]
   if num == -1 or not element then element = list[#list] end
-  open_element(element.id)
+
+  if element then open_element(element.id) end
 end
 
 ---@param current_state bufferline.State
@@ -261,6 +263,17 @@ function M.sort_by(sort_by)
   local opts = config.options
   if opts.persist_buffer_sort then utils.save_positions(state.custom_sort) end
   ui.refresh()
+end
+
+function M.rename_tab(args)
+  if #args == 0 then return end
+  local tabnr = tonumber(args[1])
+  local name = table.concat(args, " ", 2)
+  if not tabnr then
+    name = table.concat(args, " ")
+    tabnr = 0
+  end
+  tabpage.rename_tab(tabnr, name)
 end
 
 _G.___bufferline_private.handle_close = handle_close

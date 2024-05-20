@@ -1,13 +1,14 @@
 local lazy = require("bufferline.lazy")
 local config = lazy.require("bufferline.config") ---@module "bufferline.config"
 local ui = lazy.require("bufferline.ui") ---@module "bufferline.ui"
+local utils = lazy.require("bufferline.utils") ---@module "bufferline.utils"
 
 local M = {}
 
 local fn = vim.fn
 local fmt = string.format
 
-local severity_name = vim.tbl_add_reverse_lookup({
+local severity_name = utils.tbl_add_reverse_lookup({
   [1] = "error",
   [2] = "warning",
   [3] = "info",
@@ -71,8 +72,10 @@ local get_diagnostics = {
     local results = {}
     local diagnostics = vim.diagnostic.get()
     for _, d in pairs(diagnostics) do
-      if not results[d.bufnr] then results[d.bufnr] = {} end
-      table.insert(results[d.bufnr], d)
+      if vim.diagnostic.is_enabled({ ns_id = d.namespace, bufnr = d.bufnr }) then
+        if not results[d.bufnr] then results[d.bufnr] = {} end
+        table.insert(results[d.bufnr], d)
+      end
     end
     return results
   end,

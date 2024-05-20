@@ -21,7 +21,7 @@ Groups.................................: |bufferline-groups|
 Sorting................................: |bufferline-sorting|
 Filtering..............................: |bufferline-filtering|
 Commands...............................: |bufferline-commands|
-Custom functions.......................: |bufferline-exec|
+Custom functions.......................: |bufferline-functions|
 Pick...................................: |bufferline-pick|
 Mappings...............................: |bufferline-mappings|
 Highlights.............................: |bufferline-highlights|
@@ -150,6 +150,7 @@ The available configuration are:
             show_close_icon = true | false,
             show_tab_indicators = true | false,
             show_duplicate_prefix = true | false, -- whether to show duplicate buffer prefix
+            duplicates_across_groups = true, -- whether to consider duplicate paths in different groups as duplicates
             persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
             move_wraps_at_ends = false, -- whether or not the move command "wraps" at the first or last position
             -- can also be a table containing 2 custom separators
@@ -157,6 +158,7 @@ The available configuration are:
             separator_style = "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
             enforce_regular_tabs = false | true,
             always_show_bufferline = true | false,
+            auto_toggle_bufferline = true | false,
             hover = {
                 enabled = true,
                 delay = 200,
@@ -246,6 +248,14 @@ has a lot of the same features/styling but not all. A few things to note are
 * Sorting doesn't work yet as that needs to be thought through.
 * Grouping doesn't work yet as that also needs to be thought through.
 
+`BufferLineTabRename`
+
+Tabs can be renamed using the `BufferLineTabRename` command:
+
+e.g.
+
+- Rename the current tab: `BufferLineTabRename Code`
+- Rename a tab based on it's `tabnr`: `BufferLineTabRename 1 Code`
 
 ==============================================================================
 NUMBERS                                                    *bufferline-numbers*
@@ -551,17 +561,17 @@ These commands apply the configured `close_command` to each of the corresponding
 CUSTOM-FUNCTIONS                                     *bufferline-functions*
 
 A user can also execute arbitrary functions against a buffer using the
-`buf_exec` function. For example
+`exec` function. For example
 
 >lua
-    require('bufferline').buf_exec(
+    require('bufferline').exec(
         4, -- the forth visible buffer from the left
         user_function -- an arbitrary user function which gets passed the buffer
     )
 
     -- e.g.
     function _G.bdel(num)
-        require('bufferline').buf_exec(num, function(buf, visible_buffers)
+        require('bufferline').exec(num, function(buf, visible_buffers)
             vim.cmd('bdelete '..buf.id)
         end
     end
