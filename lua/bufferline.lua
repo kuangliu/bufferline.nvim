@@ -181,16 +181,17 @@ local function setup_commands()
   })
 end
 
+local function setup_diagnostic_handler(preferences)
+  if preferences.options.diagnostics == "nvim_lsp" and preferences.options.diagnostics_update_on_event then
+    vim.diagnostic.handlers["bufferline"] = {
+      show = function() ui.refresh() end,
+      hide = function() ui.refresh() end,
+    }
+  end
+end
+
 ---@param conf bufferline.UserConfig?
 function M.setup(conf)
-  if not utils.is_current_stable_release() then
-    utils.notify(
-      "bufferline.nvim requires Neovim 0.7 or higher, please use tag 1.* or update your neovim",
-      "error",
-      { once = true }
-    )
-    return
-  end
   conf = conf or {}
   config.setup(conf)
   groups.setup(conf) -- Groups must be set up before the config is applied
@@ -200,6 +201,7 @@ function M.setup(conf)
   hover.setup(preferences)
   setup_commands()
   setup_autocommands(preferences)
+  setup_diagnostic_handler(preferences)
   vim.o.tabline = "%!v:lua.nvim_bufferline()"
   toggle_bufferline()
 end
